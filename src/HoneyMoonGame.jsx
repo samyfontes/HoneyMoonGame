@@ -14,7 +14,7 @@ export default function HoneymoonGame() {
   const [customCards, setCustomCards] = useState([]);
   const [newCardText, setNewCardText] = useState("");
   const [newCardCategory, setNewCardCategory] = useState("heart");
-  const [skipNames, setSkipNames] = useState(false); // New state for skipping names
+  const [skipNames, setSkipNames] = useState(false);
 
   const categoryEmojis = {
     heart: "💙",
@@ -30,7 +30,7 @@ export default function HoneymoonGame() {
     setDeck(shuffledDeck);
     setGameStarted(true);
     if (skipNames) {
-      setTurn(0); // Automatically start with turn 0
+      setTurn(0);
     }
   };
 
@@ -58,7 +58,7 @@ export default function HoneymoonGame() {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto text-center">
+    <div className="p-6 max-w-full mx-auto text-center sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
       {!gameStarted ? (
         <div>
           <h1 className="text-2xl font-bold">Un Viaje de Dos</h1>
@@ -73,7 +73,7 @@ export default function HoneymoonGame() {
             <button 
               onClick={() => {
                 setSkipNames(true);
-                startGame(); // Start game immediately when this button is clicked
+                startGame();
               }} 
               className={`p-2 ${skipNames ? 'bg-blue-500 text-white' : 'bg-gray-500 text-gray-300'}`}
             >
@@ -88,14 +88,14 @@ export default function HoneymoonGame() {
                 placeholder="Nombre 1"
                 value={players.player1}
                 onChange={(e) => setPlayers({ ...players, player1: e.target.value })}
-                className="border p-2 mb-2"
+                className="border p-2 mb-2 w-full sm:w-auto"
               />
               <input
                 type="text"
                 placeholder="Nombre 2"
                 value={players.player2}
                 onChange={(e) => setPlayers({ ...players, player2: e.target.value })}
-                className="border p-2 mb-2"
+                className="border p-2 mb-2 w-full sm:w-auto"
               />
             </div>
           )}
@@ -106,24 +106,27 @@ export default function HoneymoonGame() {
             placeholder="Escribe tu carta"
             value={newCardText}
             onChange={(e) => setNewCardText(e.target.value)}
-            className="border p-2 mb-2"
+            className="border p-2 mb-2 w-full sm:w-auto"
           />
           <select
             value={newCardCategory}
             onChange={(e) => setNewCardCategory(e.target.value)}
-            className="border p-2 mb-2"
+            className="border p-2 mb-2 w-full sm:w-auto"
           >
             <option value="heart">💙 Conexión emocional</option>
             <option value="love">💕 Coqueteo y romance</option>
             <option value="fire">🔥 Pasión y atrevimiento</option>
           </select>
-          <button onClick={addCustomCard} className="bg-yellow-500 text-white p-2 rounded">Añadir Carta</button>
-          <button onClick={startGame} className="bg-blue-500 text-white p-2 rounded mt-4">Comenzar</button>
+          <button onClick={addCustomCard} className="bg-yellow-500 text-white p-2 rounded mt-2">
+            Añadir Carta
+          </button>
+          <button onClick={startGame} className="bg-blue-500 text-white p-2 rounded mt-4 w-full sm:w-auto">
+            Comenzar
+          </button>
         </div>
       ) : (
         <div>
           <div className="p-4 border rounded-lg shadow-lg bg-white">
-            {/* Only show turn info when player names are entered */}
             {!skipNames && (
               <h2 className="text-xl font-bold text-blue-600">
                 Turno de: {turn === 0 ? players.player1 : players.player2}
@@ -140,19 +143,13 @@ export default function HoneymoonGame() {
                 <p className="question-text">{currentCard.text}</p>
               </motion.div>
             )}
-            <button onClick={drawCard} className="bg-green-500 text-white p-2 rounded mt-4">
-              {`Tomar carta`}
+            <button onClick={drawCard} className="bg-green-500 text-white p-2 rounded mt-4 w-full sm:w-auto">
+              Tomar carta
             </button>
           </div>
         </div>
       )}
 
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-
-      {/* Instructions section at the bottom */}
       {!gameStarted && (
         <div className="mt-8 p-4 bg-gray-100 rounded-lg">
           <h2 className="text-2xl font-bold mb-4">📜 Instrucciones</h2>
