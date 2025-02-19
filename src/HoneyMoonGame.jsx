@@ -109,7 +109,7 @@ export default function HoneymoonGame() {
           >
             <option value="heart">💙 Conexión emocional</option>
             <option value="love">💕 Coqueteo y romance</option>
-            <option value="fire">🔥 Pasión y atrevimiento</option>
+            {/* <option value="fire">🔥 Pasión y atrevimiento</option> */}
           </select>
           <button onClick={addCustomCard} className="bg-yellow-500 text-white p-2 rounded mt-2">
             Añadir Carta
@@ -160,7 +160,7 @@ export default function HoneymoonGame() {
           <ul className="list-disc pl-5">
             <li>💙 = Conexión emocional</li>
             <li>💕 = Coqueteo y romance</li>
-            <li>🔥 = Pasión y atrevimiento</li>
+            {/* <li>🔥 = Pasión y atrevimiento</li> */}
           </ul>
         </div>
       )}
