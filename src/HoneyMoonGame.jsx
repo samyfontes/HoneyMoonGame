@@ -14,6 +14,7 @@ export default function HoneymoonGame() {
   const [customCards, setCustomCards] = useState([]);
   const [newCardText, setNewCardText] = useState("");
   const [newCardCategory, setNewCardCategory] = useState("heart");
+  const [skipNames, setSkipNames] = useState(false); // New state for skipping names
 
   const categoryEmojis = {
     heart: "💙",
@@ -28,6 +29,9 @@ export default function HoneymoonGame() {
     const shuffledDeck = shuffleDeck(formattedDeck);
     setDeck(shuffledDeck);
     setGameStarted(true);
+    if (skipNames) {
+      setTurn(0); // Automatically start with turn 0
+    }
   };
 
   const shuffleDeck = (deck) => {
@@ -58,21 +62,44 @@ export default function HoneymoonGame() {
       {!gameStarted ? (
         <div>
           <h1 className="text-2xl font-bold">Un Viaje de Dos</h1>
-          <p className="mb-4">Ingrese los nombres para comenzar</p>
-          <input
-            type="text"
-            placeholder="Nombre 1"
-            value={players.player1}
-            onChange={(e) => setPlayers({ ...players, player1: e.target.value })}
-            className="border p-2 mb-2"
-          />
-          <input
-            type="text"
-            placeholder="Nombre 2"
-            value={players.player2}
-            onChange={(e) => setPlayers({ ...players, player2: e.target.value })}
-            className="border p-2 mb-2"
-          />
+          <p className="mb-4">Seleccione una opción para comenzar</p>
+          <div className="mb-4">
+            <button 
+              onClick={() => setSkipNames(false)} 
+              className={`mr-4 p-2 ${!skipNames ? 'bg-blue-500 text-white' : 'bg-gray-500 text-gray-300'}`}
+            >
+              Ingresar Nombres
+            </button>
+            <button 
+              onClick={() => {
+                setSkipNames(true);
+                startGame(); // Start game immediately when this button is clicked
+              }} 
+              className={`p-2 ${skipNames ? 'bg-blue-500 text-white' : 'bg-gray-500 text-gray-300'}`}
+            >
+              Jugar Sin Nombres
+            </button>
+          </div>
+
+          {!skipNames && (
+            <div>
+              <input
+                type="text"
+                placeholder="Nombre 1"
+                value={players.player1}
+                onChange={(e) => setPlayers({ ...players, player1: e.target.value })}
+                className="border p-2 mb-2"
+              />
+              <input
+                type="text"
+                placeholder="Nombre 2"
+                value={players.player2}
+                onChange={(e) => setPlayers({ ...players, player2: e.target.value })}
+                className="border p-2 mb-2"
+              />
+            </div>
+          )}
+
           <h2 className="text-lg font-bold mt-4">Añadir Cartas Personalizadas</h2>
           <input
             type="text"
@@ -96,9 +123,12 @@ export default function HoneymoonGame() {
       ) : (
         <div>
           <div className="p-4 border rounded-lg shadow-lg bg-white">
-            <h2 className="text-xl font-bold text-blue-600">
-              Turno de: {turn === 0 ? players.player1 : players.player2}
-            </h2>
+            {/* Only show turn info when player names are entered */}
+            {!skipNames && (
+              <h2 className="text-xl font-bold text-blue-600">
+                Turno de: {turn === 0 ? players.player1 : players.player2}
+              </h2>
+            )}
             {currentCard && (
               <motion.div 
                 className="playing-card"
@@ -111,7 +141,7 @@ export default function HoneymoonGame() {
               </motion.div>
             )}
             <button onClick={drawCard} className="bg-green-500 text-white p-2 rounded mt-4">
-              {`Tomar carta (${turn === 0 ? players.player2 : players.player1} sigue)`}
+              {`Tomar carta`}
             </button>
           </div>
         </div>
