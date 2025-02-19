@@ -11,6 +11,9 @@ export default function HoneymoonGame() {
   const [currentCard, setCurrentCard] = useState(null);
   const [turn, setTurn] = useState(0);
   const [flipping, setFlipping] = useState(false);
+  const [customCards, setCustomCards] = useState([]);
+  const [newCardText, setNewCardText] = useState("");
+  const [newCardCategory, setNewCardCategory] = useState("heart");
 
   const categoryEmojis = {
     heart: "💙",
@@ -21,7 +24,7 @@ export default function HoneymoonGame() {
   const startGame = () => {
     const formattedDeck = Object.keys(cardsData).flatMap(category => 
       cardsData[category].map(card => ({ text: card, category }))
-    );
+    ).concat(customCards);
     const shuffledDeck = shuffleDeck(formattedDeck);
     setDeck(shuffledDeck);
     setGameStarted(true);
@@ -44,6 +47,12 @@ export default function HoneymoonGame() {
     }, 500);
   };
 
+  const addCustomCard = () => {
+    if (newCardText.trim() === "") return;
+    setCustomCards([...customCards, { text: newCardText, category: newCardCategory }]);
+    setNewCardText("");
+  };
+
   return (
     <div className="p-6 max-w-lg mx-auto text-center">
       {!gameStarted ? (
@@ -64,7 +73,25 @@ export default function HoneymoonGame() {
             onChange={(e) => setPlayers({ ...players, player2: e.target.value })}
             className="border p-2 mb-2"
           />
-          <button onClick={startGame} className="bg-blue-500 text-white p-2 rounded">Comenzar</button>
+          <h2 className="text-lg font-bold mt-4">Añadir Cartas Personalizadas</h2>
+          <input
+            type="text"
+            placeholder="Escribe tu carta"
+            value={newCardText}
+            onChange={(e) => setNewCardText(e.target.value)}
+            className="border p-2 mb-2"
+          />
+          <select
+            value={newCardCategory}
+            onChange={(e) => setNewCardCategory(e.target.value)}
+            className="border p-2 mb-2"
+          >
+            <option value="heart">💙 Conexión emocional</option>
+            <option value="love">💕 Coqueteo y romance</option>
+            <option value="fire">🔥 Pasión y atrevimiento</option>
+          </select>
+          <button onClick={addCustomCard} className="bg-yellow-500 text-white p-2 rounded">Añadir Carta</button>
+          <button onClick={startGame} className="bg-blue-500 text-white p-2 rounded mt-4">Comenzar</button>
         </div>
       ) : (
         <div>
