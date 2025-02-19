@@ -65,12 +65,6 @@ export default function HoneymoonGame() {
           <p className="mb-4">Seleccione una opción para comenzar</p>
           <div className="mb-4">
             <button 
-              onClick={() => setSkipNames(false)} 
-              className={`mr-4 p-2 ${!skipNames ? 'bg-blue-500 text-white' : 'bg-gray-500 text-gray-300'}`}
-            >
-              Ingresar Nombres
-            </button>
-            <button 
               onClick={() => {
                 setSkipNames(true);
                 startGame();
