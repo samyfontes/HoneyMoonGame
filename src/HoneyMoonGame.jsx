@@ -151,27 +151,28 @@ export default function HoneymoonGame() {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
 
       {/* Instructions section at the bottom */}
-      <div className="mt-8 p-4 bg-gray-100 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">📜 Instrucciones</h2>
-        <p>Bienvenidos a Un Viaje de Dos, un juego diseñado para que se conozcan aún más, fortalezcan su conexión y enciendan la chispa del deseo.</p>
-        <h3 className="mt-4 font-bold">Cómo jugar:</h3>
-        <ul className="list-disc pl-5">
-          <li>Por turnos, tomen una carta al azar y sigan la indicación.</li>
-          <li>Pueden elegir pasar, pero si lo hacen, su pareja podrá darles un pequeño "castigo" (un beso, un reto o lo que se le ocurra).</li>
-          <li>Algunas cartas son colaborativas, lo que significa que ambos deben completarlas juntos.</li>
-          <li>El juego termina cuando quieran... pero los efectos pueden durar toda la luna de miel. 😏</li>
-        </ul>
-        <h4 className="mt-4 font-bold">Categorías:</h4>
-        <ul className="list-disc pl-5">
-          <li>💙 = Conexión emocional</li>
-          <li>💕 = Coqueteo y romance</li>
-          <li>🔥 = Pasión y atrevimiento</li>
-        </ul>
-      </div>
+      {!gameStarted && (
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">📜 Instrucciones</h2>
+          <p>Bienvenidos a Un Viaje de Dos, un juego diseñado para que se conozcan aún más, fortalezcan su conexión y enciendan la chispa del deseo.</p>
+          <h3 className="mt-4 font-bold">Cómo jugar:</h3>
+          <ul className="list-disc pl-5">
+            <li>Barajen las cartas y colóquenlas boca abajo.</li>
+            <li>Por turnos, tomen una carta al azar y sigan la indicación.</li>
+            <li>Pueden elegir pasar, pero si lo hacen, su pareja podrá darles un pequeño "castigo" (un beso, un reto o lo que se le ocurra).</li>
+            <li>Algunas cartas son colaborativas, lo que significa que ambos deben completarlas juntos.</li>
+            <li>El juego termina cuando quieran... pero los efectos pueden durar toda la luna de miel. 😏</li>
+          </ul>
+          <h4 className="mt-4 font-bold">Categorías:</h4>
+          <ul className="list-disc pl-5">
+            <li>💙 = Conexión emocional</li>
+            <li>💕 = Coqueteo y romance</li>
+            <li>🔥 = Pasión y atrevimiento</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
